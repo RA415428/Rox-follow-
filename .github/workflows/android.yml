@@ -1,0 +1,59 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install Bun
+      run: curl -fsSL https://bun.sh/install | bash
+
+    - name: Install Web Dependencies & Build Web Project
+      run: |
+        export PATH="$HOME/.bun/bin:$PATH"
+        bun install || npm install
+        bun run build || npm run build
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: "17"
+        distribution: "temurin"
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
+    - name: Grant Execute Permission for Gradlew
+      run: |
+        chmod +x gradlew || true
+        if [ -f "app/gradlew" ]; then chmod +x app/gradlew; fi
+
+    - name: Sync Web assets to Android App
+      run: |
+        mkdir -p app/src/main/assets/public
+        cp -r dist/* app/src/main/assets/public/ || cp -r build/* app/src/main/assets/public/ || true
+
+    - name: Build Android APK
+      run: |
+        if [ -f "./gradlew" ]; then
+          ./gradlew assembleDebug --stacktrace
+        else
+          cd app && ./gradlew assembleDebug --stacktrace
+        fi
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: RoxFollow-Debug-APK
+        path: "**/build/outputs/apk/debug/*.apk"
