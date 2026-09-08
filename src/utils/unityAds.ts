@@ -1,4 +1,3 @@
-
 declare global {
   interface Window {
     UnityAds: any;
@@ -28,7 +27,7 @@ export const showUnityRewardedAd = (onComplete?: () => void) => {
     isClickLocked = false;
   }, 3000);
 
-  const adsterraElements = document.querySelectorAll(".adsterra-banner, [class*="adsterra"], [id*="adsterra"]");
+  const adsterraElements = document.querySelectorAll(".adsterra-banner, [class*='adsterra'], [id*='adsterra']");
   adsterraElements.forEach((el) => ((el as HTMLElement).style.display = "none"));
 
   const startCooldown = () => {
@@ -38,7 +37,7 @@ export const showUnityRewardedAd = (onComplete?: () => void) => {
     }, 10000);
   };
 
-  if (typeof window !== "undefined" && window.UnityAds && window.UnityAds.isReady(REWARDED_PLACEMENT)) {
+  if (typeof window !== "undefined" && window.UnityAds && window.UnityAds.isReady && window.UnityAds.isReady(REWARDED_PLACEMENT)) {
     window.UnityAds.show(REWARDED_PLACEMENT, {
       onComplete: () => {
         adsterraElements.forEach((el) => ((el as HTMLElement).style.display = "block"));
