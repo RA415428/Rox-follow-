@@ -18,13 +18,11 @@ export const initUnityAds = () => {
 };
 
 export const showUnityRewardedAd = (onComplete?: () => void) => {
-  // Check if button/ad is in 3s lock or 10s cooldown
   if (isClickLocked || isCooldownActive) {
     console.log("Ad click ignored: Button is locked or in 10s cooldown");
     return;
   }
 
-  // 1. Lock immediately for 3 seconds on click
   isClickLocked = true;
   setTimeout(() => {
     isClickLocked = false;
@@ -37,7 +35,7 @@ export const showUnityRewardedAd = (onComplete?: () => void) => {
     isCooldownActive = true;
     setTimeout(() => {
       isCooldownActive = false;
-    }, 10000); // 10 seconds cooldown
+    }, 10000);
   };
 
   if (typeof window !== "undefined" && window.UnityAds && window.UnityAds.isReady(REWARDED_PLACEMENT)) {
