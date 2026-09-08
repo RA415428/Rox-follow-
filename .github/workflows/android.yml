@@ -33,18 +33,34 @@ jobs:
 
     - name: Copy Assets & Build APK
       run: |
-        chmod +x gradlew || true
-        if [ -d "app" ]; then
-          cd app
-          chmod +x gradlew || true
-          mkdir -p src/main/assets/public
-          cp -r ../dist/* src/main/assets/public/ || true
-          ./gradlew assembleDebug --no-daemon --stacktrace
-        else
-          mkdir -p src/main/assets/public
-          cp -r dist/* src/main/assets/public/ || true
-          ./gradlew assembleDebug --no-daemon --stacktrace
+        # Locate gradlew executable dynamically across directories
+        GRADLEW_PATH=$(find . -maxdepth 3 -name "gradlew" | head -n 1)
+
+        if [ -z "$GRADLEW_PATH" ]; then
+          echo "ERROR: gradlew not found in repository!"
+          exit 1
         fi
+
+        GRADLE_DIR=$(dirname "$GRADLEW_PATH")
+        echo "Found gradlew at $GRADLEW_PATH"
+
+        chmod +x "$GRADLEW_PATH"
+
+        # Inject assets to the Android module
+        if [ -d "$GRADLE_DIR/app/src/main" ]; then
+          ASSETS_DIR="$GRADLE_DIR/app/src/main/assets/public"
+        elif [ -d "$GRADLE_DIR/src/main" ]; then
+          ASSETS_DIR="$GRADLE_DIR/src/main/assets/public"
+        else
+          ASSETS_DIR="app/src/main/assets/public"
+        fi
+
+        mkdir -p "$ASSETS_DIR"
+        cp -r dist/* "$ASSETS_DIR/" || true
+
+        # Execute gradle build in its directory
+        cd "$GRADLE_DIR"
+        ./gradlew assembleDebug --no-daemon --stacktrace
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
