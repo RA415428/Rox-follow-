@@ -1,0 +1,540 @@
+build	Copy Assets & Build APK	﻿2026-09-08T03:13:32.1225901Z ##[group]Run # Locate gradlew executable dynamically across directories
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1226818Z ^[[36;1m# Locate gradlew executable dynamically across directories^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1227589Z ^[[36;1mGRADLEW_PATH=$(find . -maxdepth 3 -name "gradlew" | head -n 1)^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1228255Z ^[[36;1m^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1228604Z ^[[36;1mif [ -z "$GRADLEW_PATH" ]; then^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1229141Z ^[[36;1m  echo "ERROR: gradlew not found in repository!"^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1229656Z ^[[36;1m  exit 1^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1229995Z ^[[36;1mfi^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1230310Z ^[[36;1m^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1230687Z ^[[36;1mGRADLE_DIR=$(dirname "$GRADLEW_PATH")^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1231212Z ^[[36;1mecho "Found gradlew at $GRADLEW_PATH"^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1231671Z ^[[36;1m^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1232016Z ^[[36;1mchmod +x "$GRADLEW_PATH"^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1232419Z ^[[36;1m^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1232779Z ^[[36;1m# Inject assets to the Android module^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1233317Z ^[[36;1mif [ -d "$GRADLE_DIR/app/src/main" ]; then^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1233966Z ^[[36;1m  ASSETS_DIR="$GRADLE_DIR/app/src/main/assets/public"^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1234555Z ^[[36;1melif [ -d "$GRADLE_DIR/src/main" ]; then^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1235400Z ^[[36;1m  ASSETS_DIR="$GRADLE_DIR/src/main/assets/public"^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1235937Z ^[[36;1melse^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1236337Z ^[[36;1m  ASSETS_DIR="app/src/main/assets/public"^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1236807Z ^[[36;1mfi^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1237124Z ^[[36;1m^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1237449Z ^[[36;1mmkdir -p "$ASSETS_DIR"^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1237920Z ^[[36;1mcp -r dist/* "$ASSETS_DIR/" || true^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1238375Z ^[[36;1m^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1238746Z ^[[36;1m# Execute gradle build in its directory^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1239247Z ^[[36;1mcd "$GRADLE_DIR"^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1239728Z ^[[36;1m./gradlew assembleDebug --no-daemon --stacktrace^[[0m
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1295853Z shell: /usr/bin/bash -e {0}
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1296281Z env:
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1296837Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1297683Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1298361Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1299119Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1299603Z ##[endgroup]
+build	Copy Assets & Build APK	2026-09-08T03:13:32.1478423Z Found gradlew at ./gradlew
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1128144Z 
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1130149Z Welcome to Gradle 9.7.1!
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1130506Z 
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1131265Z Here are the highlights of this release:
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1132809Z  - Isolated Projects graduates to incubating
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1134324Z  - Broader Configuration Cache compatibility
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1140656Z  - Resilient Sync helps you fix broken builds
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1141177Z  - More source locations in problem reports
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1141407Z 
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1141787Z For more details see https://docs.gradle.org/9.7.1/release-notes.html
+build	Copy Assets & Build APK	2026-09-08T03:13:35.1142128Z 
+build	Copy Assets & Build APK	2026-09-08T03:13:35.5123963Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+build	Copy Assets & Build APK	2026-09-08T03:13:38.4119635Z Daemon will be stopped at the end of the build 
+build	Copy Assets & Build APK	2026-09-08T03:13:41.4127271Z Calculating task graph as no cached configuration is available for tasks: assembleDebug
+build	Copy Assets & Build APK	2026-09-08T03:14:52.7176606Z > Task :app:preBuild UP-TO-DATE
+build	Copy Assets & Build APK	2026-09-08T03:14:52.7206210Z > Task :app:preDebugBuild UP-TO-DATE
+build	Copy Assets & Build APK	2026-09-08T03:14:52.7217284Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+build	Copy Assets & Build APK	2026-09-08T03:14:52.8124069Z > Task :app:generateDebugBuildConfig
+build	Copy Assets & Build APK	2026-09-08T03:14:52.8127444Z > Task :app:generateDebugResValues
+build	Copy Assets & Build APK	2026-09-08T03:14:52.8128441Z > Task :app:createDebugCompatibleScreenManifests
+build	Copy Assets & Build APK	2026-09-08T03:14:52.8129416Z > Task :app:generateDebugResources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.7166448Z > Task :app:javaPreCompileDebug
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8132072Z 
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8148930Z ERROR: [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8179037Z > Task :app:packageDebugResources FAILED
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8182314Z ERROR: [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.png [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8208294Z ERROR: [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.png [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8238036Z ERROR: [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.png [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8268188Z ERROR: [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8298183Z ERROR: [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8328195Z ERROR: [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8333476Z ERROR: [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.png [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8368415Z ERROR: [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.png [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:14:53.8397905Z ERROR: [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.png [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.3138251Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.3168165Z > Task :app:mapDebugSourceSetPaths
+build	Copy Assets & Build APK	2026-09-08T03:15:01.4120227Z > Task :app:checkDebugAarMetadata
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6117141Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6118017Z > Task :app:mergeDebugResources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6121656Z ERROR: [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6126613Z ERROR: [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.png [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6137219Z ERROR: [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.png [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6141693Z ERROR: [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.png [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6146552Z ERROR: [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6151078Z ERROR: [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6155837Z ERROR: [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6160346Z ERROR: [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.png [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6165371Z ERROR: [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.png [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.6169660Z ERROR: [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.png [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.webp: Resource and asset merger: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7139488Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7139640Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7146351Z > Task :app:mergeDebugResources FAILED
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7171626Z FAILURE: Build completed with 2 failures.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7195443Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7196167Z 1: Task failed with an exception.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7225511Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7226033Z -----------
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7255750Z * What went wrong:
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7257264Z Execution failed for task ':app:packageDebugResources' (registered by plugin 'com.android.internal.application').
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7263431Z > [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png	[mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7267743Z   [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.png	[mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7276840Z [Incubating] Problems report is available at: file:///home/runner/work/Rox-follow-/Rox-follow-/build/reports/problems/problems-report.html
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7277905Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7278719Z Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7279390Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7280568Z You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7281507Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7282877Z For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7284156Z 9 actionable tasks: 9 executed
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7284856Z Configuration cache entry stored.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7297932Z   [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.png	[mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7308959Z   [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.png	[mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7314296Z   [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png	[mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7318671Z   [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png	[mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7322924Z   [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png	[mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7327535Z   [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.png	[mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7330919Z   [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.png	[mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7333291Z   [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.png	[mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7334269Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7334384Z * Try:
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7335239Z > Run with --info or --debug option to get more log output.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7336446Z > Run with --scan to get full insights from a Build Scan (powered by Develocity).
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7337580Z > Get more help at https://help.gradle.org.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7338042Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7338264Z * Exception is:
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7340207Z org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:packageDebugResources' (registered by plugin 'com.android.internal.application').
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7359584Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7361366Z 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7362862Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7364716Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7366861Z 	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7368940Z 	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7370888Z 	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7372838Z 	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7374652Z 	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7376553Z 	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7378259Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7379963Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7381552Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7383327Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7387321Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7390431Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7392050Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7393974Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7395886Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7397575Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7399262Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7400888Z 	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7402329Z 	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7404090Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7406320Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7408555Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7410330Z 	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7412042Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7414295Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7416736Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7418291Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7419894Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7421483Z 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7425657Z Caused by: com.android.build.gradle.tasks.ResourceException: [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png	[mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7430090Z [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.png	[mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7434121Z [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.png	[mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7438251Z [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.png	[mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7442497Z [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png	[mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7450392Z [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png	[mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7470625Z [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png	[mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7474690Z [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.png	[mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7478836Z [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.png	[mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7482678Z [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.png	[mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7484914Z 	at com.android.build.gradle.tasks.MergeResources.doFullTaskAction(MergeResources.kt:328)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7486794Z 	at com.android.build.gradle.tasks.MergeResources.doTaskAction(MergeResources.kt:357)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7488446Z 	at com.android.build.gradle.internal.tasks.NewIncrementalTask$taskAction$$inlined$recordTaskAction$1.invoke(BaseTask.kt:82)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7489812Z 	at com.android.build.gradle.internal.tasks.Blocks.recordSpan(Blocks.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7491556Z 	at com.android.build.gradle.internal.tasks.NewIncrementalTask.taskAction(NewIncrementalTask.kt:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7492889Z 	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7496240Z 	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7497994Z 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7506214Z 	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7519626Z 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7521182Z 	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:259)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7522702Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7524391Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7526268Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7527943Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7529631Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7531338Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7533042Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7534599Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:244)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7537041Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:227)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7538712Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:210)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7540509Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:176)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7541863Z 	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:167)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7543157Z 	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:47)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7544376Z 	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:137)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7545812Z 	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:134)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7547559Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7549717Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7551640Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7553349Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7555742Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7557506Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7559181Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7560603Z 	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:134)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7561944Z 	at org.gradle.internal.execution.steps.ExecuteStep$Mutable.execute(ExecuteStep.java:80)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7563584Z 	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7565186Z 	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7566524Z 	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7568085Z 	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7569873Z 	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:29)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7571701Z 	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7573548Z 	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:39)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7575217Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7576782Z 	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:42)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7578605Z 	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:24)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7580518Z 	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7582462Z 	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7584332Z 	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:39)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7586861Z 	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:28)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7588317Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7589759Z 	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7591440Z 	at org.gradle.internal.execution.steps.BuildCacheStep.executeAndStoreInCache(BuildCacheStep.java:145)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7593302Z 	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$3(BuildCacheStep.java:104)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7594898Z 	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$1(BuildCacheStep.java:104)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7596195Z 	at org.gradle.internal.Try$Success.map(Try.java:170)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7597334Z 	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithCache(BuildCacheStep.java:88)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7598817Z 	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$0(BuildCacheStep.java:75)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7599925Z 	at org.gradle.internal.Either$Left.fold(Either.java:116)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7600990Z 	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7602313Z 	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:74)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7603612Z 	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:49)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7605362Z 	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7607123Z 	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:35)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7608551Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7609907Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7611405Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7612825Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7614437Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7616691Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7618760Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7620796Z 	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:70)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7622827Z 	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:32)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7624853Z 	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:69)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7627197Z 	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:37)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7628979Z 	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:63)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7630622Z 	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:34)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7632016Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7633360Z 	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:79)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7634856Z 	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:65)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7636397Z 	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:105)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7637616Z 	at org.gradle.internal.execution.steps.ValidateStep$Mutable.execute(ValidateStep.java:65)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7639418Z 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.executeMutable(CaptureMutableStateBeforeExecutionStep.java:86)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7641477Z 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7643419Z 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7645697Z 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7647403Z 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:85)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7649035Z 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7650357Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7651991Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7653987Z 	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:36)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7656163Z 	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:23)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7657631Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7659083Z 	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:77)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7660975Z 	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:43)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7662501Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7664142Z 	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$executeMutable$0(AssignMutableWorkspaceStep.java:34)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7666360Z 	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:305)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7668072Z 	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:30)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7670031Z 	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:21)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7671528Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7672864Z 	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7674310Z 	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7676337Z 	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7678523Z 	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7680638Z 	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7682383Z 	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7683784Z 	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7685259Z 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:56)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7686487Z 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7687950Z 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7689746Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7690809Z 	... 30 more
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7693797Z Caused by: [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png	[mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7698594Z [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.png	[mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7702843Z [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.png	[mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7707071Z [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.png	[mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7711387Z [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png	[mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7715875Z [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png	[mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7720252Z [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png	[mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7724727Z [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.png	[mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7729154Z [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.png	[mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7733629Z [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.png	[mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7736036Z 	at com.android.ide.common.resources.DataSet.checkItems(DataSet.java:512)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7737184Z 	at com.android.ide.common.resources.DataSet.loadFromFiles(DataSet.java:273)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7738357Z 	at com.android.ide.common.resources.DataSet.loadFromFiles(DataSet.java:243)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7739729Z 	at com.android.build.gradle.tasks.MergeResources$doFullTaskAction$1$1$1.invoke(MergeResources.kt:278)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7741071Z 	at com.android.build.gradle.internal.tasks.Blocks.recordSpan(Blocks.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7742352Z 	at com.android.build.gradle.tasks.MergeResources.doFullTaskAction(MergeResources.kt:272)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7743138Z 	... 140 more
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7743330Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7743860Z ==============================================================================
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7744245Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7744564Z 2: Task failed with an exception.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7745184Z -----------
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7745575Z * What went wrong:
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7746781Z Execution failed for task ':app:mergeDebugResources' (registered by plugin 'com.android.internal.application').
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7750149Z > [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png	[mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7754636Z   [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.png	[mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7758704Z   [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.png	[mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7762624Z   [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.png	[mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7767703Z   [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png	[mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7771774Z   [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png	[mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7776200Z   [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png	[mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7780127Z   [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.png	[mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7784001Z   [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.png	[mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7787418Z   [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.png	[mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7788712Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7788862Z * Try:
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7789494Z > Run with --info or --debug option to get more log output.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7790470Z > Run with --scan to get full insights from a Build Scan (powered by Develocity).
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7791351Z > Get more help at https://help.gradle.org.
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7791694Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7791864Z * Exception is:
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7793300Z org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:mergeDebugResources' (registered by plugin 'com.android.internal.application').
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7795407Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.lambda$executeIfValid$1(ExecuteActionsTaskExecuter.java:135)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7796761Z 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7798235Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:133)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7800050Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7802358Z 	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7804401Z 	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7810990Z 	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7812932Z 	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7814709Z 	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7816613Z 	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7818393Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7820072Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7821659Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7823559Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7825794Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7827510Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7829337Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7830813Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7832347Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7833857Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7835711Z 	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7837212Z 	at org.gradle.execution.plan.DefaultNodeExecutor.executeLocalTaskNode(DefaultNodeExecutor.java:55)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7838480Z 	at org.gradle.execution.plan.DefaultNodeExecutor.execute(DefaultNodeExecutor.java:34)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7840058Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:355)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7841924Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:343)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7844119Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:339)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7846118Z 	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7847983Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:339)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7850086Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:328)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7851842Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7853284Z 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7854600Z 	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:111)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7856563Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:146)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7858261Z 	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:131)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7859804Z 	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:35)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7861714Z 	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7863779Z 	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7866172Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7868204Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7870052Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7871711Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7873386Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7875264Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7876901Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7878989Z 	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7880981Z 	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$0(DefaultBuildLifecycleController.java:323)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7882792Z 	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:324)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7884529Z 	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$0(StateTransitionController.java:235)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7886266Z 	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:45)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7887769Z 	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:235)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7889525Z 	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:314)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7891559Z 	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:220)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7893435Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$runAndReleaseLocks$0(DefaultWorkerLeaseService.java:302)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7895333Z 	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:43)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7896844Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.runAndReleaseLocks(DefaultWorkerLeaseService.java:300)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7898476Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:296)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7900000Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:288)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7901545Z 	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:131)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7903042Z 	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:182)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7904651Z 	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:199)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7906404Z 	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7908193Z 	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:199)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7909536Z 	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7910591Z 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7911874Z 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7913312Z 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7914651Z 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7916109Z 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7917047Z 	at java.base/java.lang.Thread.run(Thread.java:840)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7920444Z Caused by: com.android.build.gradle.tasks.ResourceException: [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png	[mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7924662Z [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.png	[mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7929131Z [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.png	[mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7933415Z [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.png	[mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7937712Z [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png	[mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7941910Z [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png	[mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7946405Z [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png	[mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7950661Z [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.png	[mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7955987Z [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.png	[mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7959782Z [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.png	[mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7962250Z 	at com.android.build.gradle.tasks.MergeResources.doFullTaskAction(MergeResources.kt:328)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7963510Z 	at com.android.build.gradle.tasks.MergeResources.doTaskAction(MergeResources.kt:357)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7965198Z 	at com.android.build.gradle.internal.tasks.NewIncrementalTask$taskAction$$inlined$recordTaskAction$1.invoke(BaseTask.kt:82)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7966627Z 	at com.android.build.gradle.internal.tasks.Blocks.recordSpan(Blocks.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7967936Z 	at com.android.build.gradle.internal.tasks.NewIncrementalTask.taskAction(NewIncrementalTask.kt:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7969233Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7970572Z 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7972100Z 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7973270Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7974198Z 	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7975827Z 	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7977408Z 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7978956Z 	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7980494Z 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7982026Z 	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:259)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7983483Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7985222Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7986883Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7988558Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7990267Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7991981Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7993694Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7995423Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:244)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7996918Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:227)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.7998595Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:210)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8000115Z 	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:176)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8001471Z 	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:167)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8002804Z 	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:47)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8004043Z 	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:137)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8005570Z 	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:134)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8007364Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8009514Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8011629Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8013349Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8015310Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8016931Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8018511Z 	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8019862Z 	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:134)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8021083Z 	at org.gradle.internal.execution.steps.ExecuteStep$Mutable.execute(ExecuteStep.java:80)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8022400Z 	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8023786Z 	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8025176Z 	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8026604Z 	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8028256Z 	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:29)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8029946Z 	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8031961Z 	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.executeMutable(RemovePreviousOutputsStep.java:39)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8033368Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8034835Z 	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:42)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8036873Z 	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:24)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8038673Z 	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8040535Z 	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8042281Z 	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:39)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8043933Z 	at org.gradle.internal.execution.steps.ResolveInputChangesStep.executeMutable(ResolveInputChangesStep.java:28)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8045452Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8046835Z 	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8048453Z 	at org.gradle.internal.execution.steps.BuildCacheStep.executeAndStoreInCache(BuildCacheStep.java:145)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8050040Z 	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$3(BuildCacheStep.java:104)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8051239Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8052478Z 	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$executeWithCache$1(BuildCacheStep.java:104)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8053577Z 	at org.gradle.internal.Try$Success.map(Try.java:170)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8054720Z 	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithCache(BuildCacheStep.java:88)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8056418Z 	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$0(BuildCacheStep.java:75)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8057501Z 	at org.gradle.internal.Either$Left.fold(Either.java:116)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8058559Z 	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8060067Z 	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:74)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8061343Z 	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:49)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8062911Z 	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8064624Z 	at org.gradle.internal.execution.steps.StoreExecutionStateStep.executeMutable(StoreExecutionStateStep.java:35)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8066341Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8067675Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8069149Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8070273Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8071436Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8072783Z 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8074620Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8076861Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8078850Z 	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:70)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8081010Z 	at org.gradle.internal.execution.steps.ResolveMutableCachingStateStep.executeDelegate(ResolveMutableCachingStateStep.java:32)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8082853Z 	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:69)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8084678Z 	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:37)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8086473Z 	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:63)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8087963Z 	at org.gradle.internal.execution.steps.ResolveChangesStep.executeMutable(ResolveChangesStep.java:34)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8089251Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8090546Z 	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:79)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8091919Z 	at org.gradle.internal.execution.steps.ValidateStep$Mutable.executeDelegate(ValidateStep.java:65)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8093196Z 	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:105)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8094423Z 	at org.gradle.internal.execution.steps.ValidateStep$Mutable.execute(ValidateStep.java:65)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8096520Z 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.executeMutable(CaptureMutableStateBeforeExecutionStep.java:86)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8098664Z 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8100714Z 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8102665Z 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8104445Z 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:85)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8106338Z 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8107798Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8109828Z 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8111950Z 	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:36)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8113946Z 	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:23)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8115788Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8117308Z 	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:77)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8119030Z 	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:43)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8120462Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8122113Z 	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$executeMutable$0(AssignMutableWorkspaceStep.java:34)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8123798Z 	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:305)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8126340Z 	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:30)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8128248Z 	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:21)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8129773Z 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8131122Z 	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8132800Z 	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8134762Z 	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8136266Z 	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8137721Z 	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8139651Z 	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8141232Z 	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8142520Z 	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8143748Z 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:56)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8144909Z 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8146390Z 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8148068Z 	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8149080Z 	... 66 more
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8151758Z Caused by: [mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png	[mipmap-xhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8155858Z [mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.png	[mipmap-xhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8159647Z [mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.png	[mipmap-mdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8163605Z [mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.png	[mipmap-mdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-mdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8167775Z [mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png	[mipmap-xxxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8172035Z [mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png	[mipmap-xxxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8176547Z [mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png	[mipmap-xxhdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8180813Z [mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.png	[mipmap-xxhdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8185279Z [mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.png	[mipmap-hdpi-v4/ic_launcher_round] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8189520Z [mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.png	[mipmap-hdpi-v4/ic_launcher] /home/runner/work/Rox-follow-/Rox-follow-/app/src/main/res/mipmap-hdpi/ic_launcher.webp: Error: Duplicate resources
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8191658Z 	at com.android.ide.common.resources.DataSet.checkItems(DataSet.java:512)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8192812Z 	at com.android.ide.common.resources.DataSet.loadFromFiles(DataSet.java:273)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8193954Z 	at com.android.ide.common.resources.DataSet.loadFromFiles(DataSet.java:243)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8195427Z 	at com.android.build.gradle.tasks.MergeResources$doFullTaskAction$1$1$1.invoke(MergeResources.kt:278)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8196648Z 	at com.android.build.gradle.internal.tasks.Blocks.recordSpan(Blocks.java:51)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8197851Z 	at com.android.build.gradle.tasks.MergeResources.doFullTaskAction(MergeResources.kt:272)
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8198568Z 	... 183 more
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8198756Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8199226Z ==============================================================================
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8199593Z 
+build	Copy Assets & Build APK	2026-09-08T03:15:01.8199820Z BUILD FAILED in 1m 29s
+build	Copy Assets & Build APK	2026-09-08T03:15:02.0058894Z ##[error]Process completed with exit code 1.
