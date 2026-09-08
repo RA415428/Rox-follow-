@@ -1,0 +1,6 @@
+{
+  "appId": "com.roxfollow.app",
+  "appName": "Rox Follow",
+  "webDir": "app/src/main/assets/public",
+  "bundledWebRuntime": false
+}
