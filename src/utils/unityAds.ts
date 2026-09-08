@@ -27,7 +27,7 @@ export const showUnityRewardedAd = (onComplete?: () => void) => {
     isClickLocked = false;
   }, 3000);
 
-  const adsterraElements = document.querySelectorAll(".adsterra-banner, [class*='adsterra'], [id*='adsterra']");
+  const adsterraElements = document.querySelectorAll('.adsterra-banner, [class*="adsterra"], [id*="adsterra"]');
   adsterraElements.forEach((el) => ((el as HTMLElement).style.display = "none"));
 
   const startCooldown = () => {
