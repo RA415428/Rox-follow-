@@ -15,11 +15,13 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install & Build Web App
+      - name: Build Web App & Sync Assets
         run: |
           npm ci || npm install
           npm run build
-          mkdir -p app/src/main/assets/public app/src/main/assets/www
+          # Create and sync web directories required by Capacitor
+          mkdir -p www app/src/main/assets/public app/src/main/assets/www
+          cp -r dist/* www/ 2>/dev/null || cp -r build/* www/ 2>/dev/null || true
           cp -r dist/* app/src/main/assets/public/ 2>/dev/null || cp -r build/* app/src/main/assets/public/ 2>/dev/null || true
           cp -r dist/* app/src/main/assets/www/ 2>/dev/null || cp -r build/* app/src/main/assets/www/ 2>/dev/null || true
 
