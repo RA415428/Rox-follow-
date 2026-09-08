@@ -7,63 +7,38 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Install Dependencies
-      run: npm install --legacy-peer-deps
+      - name: Install & Build Web App
+        run: |
+          npm ci || npm install
+          npm run build
+          mkdir -p app/src/main/assets/public app/src/main/assets/www
+          cp -r dist/* app/src/main/assets/public/ 2>/dev/null || cp -r build/* app/src/main/assets/public/ 2>/dev/null || true
+          cp -r app/src/main/assets/public/* app/src/main/assets/www/ 2>/dev/null || true
 
-    - name: Build Web App
-      run: npm run build
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: "17"
-        distribution: "temurin"
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
+      - name: Build APK with Gradle
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
 
-    - name: Copy Assets & Build APK
-      run: |
-        # Locate gradlew executable dynamically across directories
-        GRADLEW_PATH=$(find . -maxdepth 3 -name "gradlew" | head -n 1)
-
-        if [ -z "$GRADLEW_PATH" ]; then
-          echo "ERROR: gradlew not found in repository!"
-          exit 1
-        fi
-
-        GRADLE_DIR=$(dirname "$GRADLEW_PATH")
-        echo "Found gradlew at $GRADLEW_PATH"
-
-        chmod +x "$GRADLEW_PATH"
-
-        # Inject assets to the Android module
-        if [ -d "$GRADLE_DIR/app/src/main" ]; then
-          ASSETS_DIR="$GRADLE_DIR/app/src/main/assets/public"
-        elif [ -d "$GRADLE_DIR/src/main" ]; then
-          ASSETS_DIR="$GRADLE_DIR/src/main/assets/public"
-        else
-          ASSETS_DIR="app/src/main/assets/public"
-        fi
-
-        mkdir -p "$ASSETS_DIR"
-        cp -r dist/* "$ASSETS_DIR/" || true
-
-        # Execute gradle build in its directory
-        cd "$GRADLE_DIR"
-        ./gradlew assembleDebug --no-daemon --stacktrace
-
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: RoxFollow-Debug-APK
-        path: "**/build/outputs/apk/debug/*.apk"
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
